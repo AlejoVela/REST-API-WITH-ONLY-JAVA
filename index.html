@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSON tutorial</title>
+  </head>
+
+  <body>
+    <ul id="personas"></ul>
+
+    <script type="text/javascript">
+      var personas;
+      var xhttp = new XMLHttpRequest();
+      
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        var respuesta = JSON.parse(xhttp.responseText);
+          personas = respuesta.personas;
+
+          var salida = "";
+
+          for (var i = 0; i < personas.length; i++) {
+            salida += `<li>Nombre: ${personas[i].nombre}
+              Nickname:${personas[i].nickname}</li>`;
+          }
+
+          document.getElementById("personas").innerHTML = salida;
+        }
+      };
+      xhttp.open("GET", "personas.json", true);
+      xhttp.send();
+
+    </script>
+  </body>
+</html>
